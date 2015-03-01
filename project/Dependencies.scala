@@ -4,6 +4,7 @@ object Dependencies {
   //Versions
   val akkaVersion = "2.3.9"
   val junitVersion = "4.12"
+  val scalaJsDomVersion = "0.8.0"
   val scalaTestVersion = "1.3"
   val scalazVersion = "7.1.1"
   val slf4jVersion = "1.7.10"
@@ -11,6 +12,8 @@ object Dependencies {
   //Libraries
   private[this] val comTypesafeAkka = "com.typesafe.akka"
   val akkaActor = comTypesafeAkka %% "akka-actor" % akkaVersion
+
+  val orgScalaJs = "org.scala-js"
   
   private[this] val orgScalaz = "org.scalaz"
   val scalazDeps = Seq(
@@ -26,7 +29,5 @@ object Dependencies {
   val junit = "junit" % "junit" % junitVersion
   
   val scalatest = "org.scalatest" %% "scalatest" % scalaTestVersion % "test"
-  
-  //Projects
   
 }

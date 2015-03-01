@@ -22,9 +22,12 @@ lazy val core = (project in file("core")).
   
 //Scala js
 lazy val script = (project in file("script")).
+  enablePlugins(ScalaJSPlugin).
   settings(commonSettings: _*).
   settings(
-    name := "monkey-barrel-script"
+    name := "monkey-barrel-script",
+    scalaJSStage := FastOptStage, //Requires node.js to be installed
+    libraryDependencies ++= Seq(orgScalaJs %%% "scalajs-dom" % scalaJsDomVersion)
   ).
   dependsOn(core)
   

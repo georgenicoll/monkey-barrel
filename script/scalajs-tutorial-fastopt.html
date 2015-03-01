@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>The Scala.js Tutorial</title>
+</head>
+<body>
+    <button id="click-me-button" type="button" onclick="tutorial.webapp.TutorialApp().addClickedMessage()">Click Me!</button>
+
+    <!-- Include Scala.js compiled code -->
+    <script type="text/javascript" src="./target/scala-2.11/monkey-barrel-script-fastopt.js"></script>
+    <!-- Run tutorial.webapp.TutorialApp -->
+    <script type="text/javascript">
+        tutorial.webapp.TutorialApp().main();
+    </script>
+</body>
+</html>
