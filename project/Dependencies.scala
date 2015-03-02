@@ -2,32 +2,34 @@ import sbt._
 
 object Dependencies {
   //Versions
-  val akkaVersion = "2.3.9"
-  val junitVersion = "4.12"
-  val scalaJsDomVersion = "0.8.0"
-  val scalaTestVersion = "1.3"
-  val scalazVersion = "7.1.1"
-  val slf4jVersion = "1.7.10"
+  val _AkkaVersion_ = "2.3.9"
+  val _JUnitVersion_ = "4.12"
+  val _ScalaJsDomVersion_ = "0.8.0"
+  val _ScalaJsJQueryVersion_ = "0.8.0"
+  val _ScalaTestVersion_ = "1.3"
+  val _ScalazVersion_ = "7.1.1"
+  val _Slf4jVersion_ = "1.7.10"
+  val _UTestVersion_ = "0.3.0"
+
+  val _Test_ = "test"
 
   //Libraries
-  private[this] val comTypesafeAkka = "com.typesafe.akka"
-  val akkaActor = comTypesafeAkka %% "akka-actor" % akkaVersion
+  private[this] val _ComTypesafeAkka_ = "com.typesafe.akka"
+  val _AkkaActor_ = _ComTypesafeAkka_ %% "akka-actor" % _AkkaVersion_
 
-  val orgScalaJs = "org.scala-js"
-  
-  private[this] val orgScalaz = "org.scalaz"
-  val scalazDeps = Seq(
-    orgScalaz %% "scalaz-core" % scalazVersion,
-    orgScalaz %% "scalaz-effect" % scalazVersion,
-    orgScalaz %% "scalaz-typelevel" % scalazVersion,
-    orgScalaz %% "scalaz-scalacheck-binding" % scalazVersion % "test"
+  private[this] val _OrgScalaz_ = "org.scalaz"
+  val _ScalazDeps_ = Seq(
+    _OrgScalaz_ %% "scalaz-core" % _ScalazVersion_,
+    _OrgScalaz_ %% "scalaz-effect" % _ScalazVersion_,
+    _OrgScalaz_ %% "scalaz-typelevel" % _ScalazVersion_,
+    _OrgScalaz_ %% "scalaz-scalacheck-binding" % _ScalazVersion_ % _Test_
   )
   
-  val slf4japi = "org.slf4j" % "slf4j-api" % slf4jVersion
-  val slf4jsimple = "org.slf4j" % "slf4j-simple" % slf4jVersion
+  val _Slf4japi_ = "org.slf4j" % "slf4j-api" % _Slf4jVersion_
+  val _Slf4jsimple_ = "org.slf4j" % "slf4j-simple" % _Slf4jVersion_
   
-  val junit = "junit" % "junit" % junitVersion
+  val _JUnit_ = "junit" % "junit" % _JUnitVersion_
   
-  val scalatest = "org.scalatest" %% "scalatest" % scalaTestVersion % "test"
+  val _Scalatest_ = "org.scalatest" %% "scalatest" % _ScalaTestVersion_ % _Test_
   
 }

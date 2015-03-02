@@ -26,8 +26,17 @@ lazy val script = (project in file("script")).
   settings(commonSettings: _*).
   settings(
     name := "monkey-barrel-script",
-    scalaJSStage := FastOptStage, //Requires node.js to be installed
-    libraryDependencies ++= Seq(orgScalaJs %%% "scalajs-dom" % scalaJsDomVersion)
+    scalaJSStage := FullOptStage, //FastOptStage, //Requires node.js to be installed and on the path
+    skip in packageJSDependencies := false,
+    jsDependencies += RuntimeDOM, //Requires PhantomJS to be on the path
+    testFrameworks += new TestFramework("utest.runner.Framework"),
+    persistLauncher in Compile := true,
+    persistLauncher in Test := false,
+    //libraryDependencies ++= Seq("org.scala-js" %%% "scalajs-dom" % scalaJsDomVersion)
+    libraryDependencies ++= Seq(
+      "be.doeraene" %%% "scalajs-jquery" % _ScalaJsJQueryVersion_,
+      "com.lihaoyi" %%% "utest" % _UTestVersion_ % _Test_
+    )
   ).
   dependsOn(core)
   
