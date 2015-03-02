@@ -6,6 +6,7 @@ object Dependencies {
   val _JUnitVersion_ = "4.12"
   val _ScalaJsDomVersion_ = "0.8.0"
   val _ScalaJsJQueryVersion_ = "0.8.0"
+  val _ScalaTagsVersion_ = "0.4.5"
   val _ScalaTestVersion_ = "1.3"
   val _ScalazVersion_ = "7.1.1"
   val _Slf4jVersion_ = "1.7.10"
@@ -31,5 +32,7 @@ object Dependencies {
   val _JUnit_ = "junit" % "junit" % _JUnitVersion_
   
   val _Scalatest_ = "org.scalatest" %% "scalatest" % _ScalaTestVersion_ % _Test_
+
+  val _ComLihaoyi_ = "com.lihaoyi"
   
 }

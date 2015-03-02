@@ -35,7 +35,8 @@ lazy val script = (project in file("script")).
     //libraryDependencies ++= Seq("org.scala-js" %%% "scalajs-dom" % scalaJsDomVersion)
     libraryDependencies ++= Seq(
       "be.doeraene" %%% "scalajs-jquery" % _ScalaJsJQueryVersion_,
-      "com.lihaoyi" %%% "utest" % _UTestVersion_ % _Test_
+      _ComLihaoyi_ %%% "scalatags" % _ScalaTagsVersion_,
+      _ComLihaoyi_ %%% "utest" % _UTestVersion_ % _Test_
     )
   ).
   dependsOn(core)

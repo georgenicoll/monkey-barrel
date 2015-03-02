@@ -3,6 +3,7 @@ package tutorial.webapp
 import org.scalajs.jquery.jQuery
 
 import scala.scalajs.js.JSApp
+import scalatags.Text.all._
 
 object TutorialApp extends JSApp {
 
@@ -11,13 +12,13 @@ object TutorialApp extends JSApp {
   val YouClickedTheButton = "You Clicked the Button"
 
   def appendPar(msg: String): Unit = {
-    jQuery("body").append(s"<p>${msg}</p>")
+    val par = p(msg)
+    jQuery("body").append(par.toString())
   }
 
   def setupUI(): Unit = {
-    jQuery(s"""<button type="button">${ClickMe}</button>""")
-      .click(addClickedMessage _)
-      .appendTo(jQuery("body"))
+    val btn = button(ClickMe)
+    jQuery(btn.toString()).click(addClickedMessage _).appendTo(jQuery("body"))
     appendPar(HelloWorld)
   }
 
