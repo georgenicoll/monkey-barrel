@@ -13,12 +13,12 @@ object TutorialApp extends JSApp {
 
   def appendPar(msg: String): Unit = {
     val par = p(msg)
-    jQuery("body").append(par.toString())
+    jQuery("body").append(par.render)
   }
 
   def setupUI(): Unit = {
     val btn = button(ClickMe)
-    jQuery(btn.toString()).click(addClickedMessage _).appendTo(jQuery("body"))
+    jQuery(btn.render).click(addClickedMessage _).appendTo(jQuery("body"))
     appendPar(HelloWorld)
   }
 
