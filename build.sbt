@@ -3,22 +3,30 @@ import Dependencies._
 lazy val commonSettings = Seq(
   organization := "org.monkeynuthead",
   version := "0.1.0",
-  scalaVersion := "2.11.5",
-  sbtVersion := "0.13.7",
+  scalaVersion := _ScalaVersion_,
+  sbtVersion := _SbtVersion_,
   scalacOptions ++= Seq("-feature","-unchecked","-deprecation")
 )
 
 //Aggregate Project
 lazy val root = (project in file(".")).
   settings(commonSettings: _*).
-  aggregate(core, script, web)
+  aggregate(core_jvm, core_js, script, web)
 
-//Core classes
-lazy val core = (project in file("core")).
+//Core classes (cross compiled for usage on the jvm and from java script)
+lazy val core = (crossProject in file("core")).
   settings(commonSettings: _*).
   settings(
-    name := "monkey-barrel-core"
-  )
+    name := "monkey-barrel-core",
+    libraryDependencies ++= Seq(
+      _Shapeless_,
+      _JUnit_, _Scalatest_
+    )
+  ).
+  jvmSettings().
+  jsSettings()
+lazy val core_jvm = core.jvm
+lazy val core_js = core.js
   
 //Scala js
 lazy val script = (project in file("script")).
@@ -39,7 +47,7 @@ lazy val script = (project in file("script")).
       _ComLihaoyi_ %%% "utest" % _UTestVersion_ % _Test_
     )
   ).
-  dependsOn(core)
+  dependsOn(core_js)
   
 //The web application (play)
 lazy val web = (project in file("web")).
@@ -47,5 +55,5 @@ lazy val web = (project in file("web")).
   settings(
     name := "monkey-barrel-web"
   ).
-  dependsOn(core, script)
+  dependsOn(core_jvm, script)
   
