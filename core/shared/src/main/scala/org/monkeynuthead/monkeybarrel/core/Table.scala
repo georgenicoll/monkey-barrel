@@ -7,7 +7,7 @@ import Types._
 /**
  * A table containing a number of rows which (optionally) contain values for the attributes.
  */
-class Table(val attributes: Seq[Attribute], private[core] val rows: Seq[Row]) {
+class Table(val attributes: Seq[Attribute], val rows: Seq[Row]) {
 
   /**
    * Add a row to the table returning another table.

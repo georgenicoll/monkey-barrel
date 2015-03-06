@@ -48,7 +48,9 @@ lazy val script = (project in file("script")).
       "be.doeraene" %%% "scalajs-jquery" % _ScalaJsJQueryVersion_,
       _ComLihaoyi_ %%% "scalatags" % _ScalaTagsVersion_,
       _ComLihaoyi_ %%% "utest" % _UTestVersion_ % _Test_
-    )
+    ),
+    mainClass in Compile := Some("org.monkeynuthead.monkeybarrel.js.Barrel")
+    //scalaJSOptimizerOptions ~= { _.withDisableOptimizer(true) } //no Opt for debugging
   ).
   dependsOn(core_js)
   
