@@ -19,11 +19,14 @@ lazy val core = (crossProject in file("core")).
   settings(
     name := "monkey-barrel-core",
     libraryDependencies ++= Seq(
-      _Shapeless_,
+      _Shapeless_
+    )
+  ).
+  jvmSettings(
+    libraryDependencies ++= Seq(
       _JUnit_, _Scalatest_
     )
   ).
-  jvmSettings().
   jsSettings()
 lazy val core_jvm = core.jvm
 lazy val core_js = core.js
