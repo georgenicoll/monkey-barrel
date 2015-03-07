@@ -47,6 +47,7 @@ lazy val script = (project in file("script")).
     libraryDependencies ++= Seq(
       "be.doeraene" %%% "scalajs-jquery" % _ScalaJsJQueryVersion_,
       _ComLihaoyi_ %%% "scalatags" % _ScalaTagsVersion_,
+      _ComLihaoyi_ %%% "scalarx" % _ScalaRxVersion_,
       _ComLihaoyi_ %%% "utest" % _UTestVersion_ % _Test_
     ),
     mainClass in Compile := Some("org.monkeynuthead.monkeybarrel.js.Barrel")

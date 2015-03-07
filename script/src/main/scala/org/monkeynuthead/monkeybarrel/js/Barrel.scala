@@ -1,10 +1,11 @@
 package org.monkeynuthead.monkeybarrel.js
 
 import org.monkeynuthead.monkeybarrel.core.{Aggregator, Row, Table}
+import org.scalajs.jquery._
+import rx.core.{Obs, Var}
 
 import scala.scalajs.js.JSApp
 import scalatags.Text.all._
-import org.scalajs.jquery._
 
 /**
  * Basic first attempt to access the aggregation code from the javascript.
@@ -31,21 +32,26 @@ object Barrel extends JSApp {
     Row(Map(Country -> "France", City -> "Marseille", Size -> "Small"), Map(Population -> 1630000))
   ))
 
+  private[this] val aggregated: Var[Option[Table]] = Var(None)
+
   private[this] val ControlDivId = "controls"
   private[this] val DataDivId = "data"
   private[this] val AggSelectId = "aggregationAttribute"
 
-  private[this] def aggregate(attribute: String): Unit = {
+  private[this] def showTable(tableOpt: Option[Table]): Unit = {
     jQuery(s"#${DataDivId}").empty()
-    val aggregator = Aggregator(table)
-    val aggregated = aggregator.aggregate(List(attribute), Map(Population -> (_ + _)))
-    val d = div(
-      aggregated.rows.map { row =>
-        p(label(s"${row.attributes(attribute)} = ${row.measures(Population)}"))
+    val ps = tableOpt.map { tab =>
+      tab.rows.map { row =>
+        p(label(s"${tab.attributes.map(a => (a, row.attributes(a))).mkString(",")} = ${row.measures(Population)}"))
       }
-    )
+    }
+    val d = div(ps.toSeq)
     println(d.render)
     jQuery(d.render).appendTo(s"#${DataDivId}")
+  }
+
+  private[this] def aggregate(attribute: String): Unit = {
+    aggregated() = Some(Aggregator(table).aggregate(List(attribute), Map(Population -> (_ + _))))
   }
 
   private[this] def selectChanged(event: JQueryEventObject): Unit = {
@@ -71,6 +77,11 @@ object Barrel extends JSApp {
     )
     jQuery(para.render).appendTo(jQuery("body"))
     jQuery(attributeSelect.render).change(selectChanged _).appendTo(jQuery(s"#${ControlDivId}"))
+
+    Obs(aggregated) {
+      showTable(aggregated())
+    }
+
     aggregate(Country)
   }
 

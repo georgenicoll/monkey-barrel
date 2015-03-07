@@ -9,6 +9,7 @@ object Dependencies {
   val _JUnitVersion_ = "4.12"
   val _ScalaJsDomVersion_ = "0.8.0"
   val _ScalaJsJQueryVersion_ = "0.8.0"
+  val _ScalaRxVersion_ = "0.2.7"
   val _ScalaTagsVersion_ = "0.4.5"
   val _ScalaTestVersion_ = "2.2.4"
   val _ScalazVersion_ = "7.1.1"
