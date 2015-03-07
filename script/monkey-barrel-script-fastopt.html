@@ -5,6 +5,23 @@
     <title>Monkey Barrel</title>
 </head>
 <body>
+    <div id = "ChartContainer">
+        <script type="text/javascript" src="lib/d3/d3.v3.5.5.js"></script>
+        <script type="text/javascript" src="lib/dimple/dimple.v2.1.3.js"></script>
+        <script type="text/javascript">
+            function createChart(attribute, measure, data) {
+                d3.select("#ChartContainer").selectAll("*").remove();
+                var svg = dimple.newSvg("#ChartContainer", 500, 250);
+                var myChart = new dimple.chart(svg, data);
+                myChart.setBounds(60, 10, 440, 200);
+                var x = myChart.addCategoryAxis("x", attribute);
+                x.addOrderRule(attribute)
+                myChart.addMeasureAxis("y", measure);
+                myChart.addSeries(null, dimple.plot.bar);
+                myChart.draw();
+            }
+        </script>
+    </div>
     <!-- Include java script dependencies -->
     <script type="text/javascript" src="./target/scala-2.11/monkey-barrel-script-jsdeps.js"></script>
     <!-- Include Scala.js compiled code -->
