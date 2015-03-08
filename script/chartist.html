@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <link rel="stylesheet"
+          href="http://cdn.jsdelivr.net/chartist.js/latest/chartist.min.css">
+    <script src="http://cdn.jsdelivr.net/chartist.js/latest/chartist.min.js"></script>
+    <meta charset="UTF-8">
+    <title>Chartist Playground</title>
+</head>
+<body>
+<div class="ct-chart"></div>
+<script type="text/javascript">
+var data = {
+  // A labels array that can contain any sort of values
+  labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri'],
+  // Our series array that contains series objects or in this case series data arrays
+  series: [
+    [5, 2, 4, 2, 1]
+  ]
+};
+var options = {
+  width : 400,
+  height : 250
+};
+new Chartist.Bar(".ct-chart", data, options);
+</script>
+</body>
+</html>
