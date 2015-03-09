@@ -6,6 +6,7 @@ object Dependencies {
 
   //Versions
   val _AkkaVersion_ = "2.3.9"
+  val _AkkaStreamsVersion_ = "1.0-M4"
   val _JUnitVersion_ = "4.12"
   val _ScalaJsDomVersion_ = "0.8.0"
   val _ScalaJsJQueryVersion_ = "0.8.0"
@@ -22,6 +23,8 @@ object Dependencies {
   //Libraries
   private[this] val _ComTypesafeAkka_ = "com.typesafe.akka"
   val _AkkaActor_ = _ComTypesafeAkka_ %% "akka-actor" % _AkkaVersion_
+  val _AkkaTestKit_ = _ComTypesafeAkka_ %% "akka-testkit" % _AkkaVersion_ % _Test_
+  val _AkkaStreams_ = _ComTypesafeAkka_ %% "akka-stream-experimental" % _AkkaStreamsVersion_
 
   val _ComLihaoyi_ = "com.lihaoyi"
 

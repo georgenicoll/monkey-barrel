@@ -19,7 +19,10 @@ lazy val core = (crossProject in file("core")).
   settings(
     name := "monkey-barrel-core",
     libraryDependencies ++= Seq(
-      _Shapeless_
+      _Shapeless_,
+      _AkkaActor_,
+      _AkkaStreams_,
+      _AkkaTestKit_
     )
   ).
   jvmSettings(
