@@ -1,4 +1,5 @@
 import Dependencies._
+import sbt.Keys._
 
 lazy val commonSettings = Seq(
   organization := "org.monkeynuthead",
@@ -59,10 +60,13 @@ lazy val script = (project in file("script")).
   dependsOn(core_js)
   
 //The web application (play)
-lazy val web = (project in file("web")).
+lazy val web =  (project in file("web")).
+  enablePlugins(PlayScala).
   settings(commonSettings: _*).
   settings(
-    name := "monkey-barrel-web"
+    name := "monkey-barrel-web",
+    libraryDependencies ++= Seq(
+      jdbc, anorm, cache, ws
+    )
   ).
   dependsOn(core_jvm, script)
-  
