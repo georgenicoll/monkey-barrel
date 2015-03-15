@@ -1,1 +1,17 @@
-application.name=Affe Fass
+application.name=Affe Fass (sorry about murdering the German)
+
+barrel.mixup=Mischen Sie Ihre Affen
+
+products.list=Produkte
+products.view=Ansicht
+products.new=Neue Produckt
+products.new.submit=Legen Produkt
+products.new.namealreadyexists=Es gibt bereits ein Produkt mit diesem Namen
+products.new.added=Produkt {0} Eingefügt
+products.delete=Löschen
+products.delete.deleted=Gelöscht {0}
+products.details=Produckt: {0}
+products.id=Id
+products.name=Name
+products.description=Beschreibung
+validation.errors=Bestätigungsfehlern

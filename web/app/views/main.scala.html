@@ -1,16 +1,43 @@
-@(title: String)(content: Html)(implicit lang: Lang)
+@(title: String)(content: Html)(implicit flash: Flash, lang: Lang)
 
 <!DOCTYPE html>
 
-<html>
+<html lang="en">
     <head>
         <title>@title</title>
+        <!-- Latest compiled and minified CSS -->
+        <link rel="stylesheet" href="@routes.Assets.at("stylesheets/bootstrap.min.css")">
+        <!-- App specific styles -->
         <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/main.css")">
         <!--
         <script src="Use routes" type="text/javascript"></script>
         -->
     </head>
     <body>
-        @content
+        <div class="page-header container">
+            <div class="row">
+                <div class="col-md-1 borderedx" style="max-width:100px;max-height:100px;">
+                    <img class="scaled" src="@routes.Assets.at("images/monkey-head.png")" />
+                </div>
+                <div class="col-md-11 borderedx">
+                    <h2>@Messages("barrel.mixup")</h2>
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            @if(flash.get("success").isDefined){
+                <div class="alert alert-success bg-success">
+                @flash.get("success")
+                </div>
+            }
+            @if(flash.get("error").isDefined) {
+                <div class="alert alert-error bg-danger">
+                @flash.get("error")
+                </div>
+            }
+
+            @content
+            @debug()
+        </div>
     </body>
 </html>

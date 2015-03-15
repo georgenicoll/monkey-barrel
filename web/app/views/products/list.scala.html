@@ -1,0 +1,30 @@
+@(products: List[Product])(implicit flash: Flash, lang: Lang)
+
+@main(Messages("products.list")) {
+
+    <h2>@Messages("products.list")</h2>
+
+    <table class="table">
+
+        <tr>
+            <th></th>
+            <th>@Messages("products.name")</th>
+            <th>@Messages("products.description")</th>
+        </tr>
+
+        @for(product <- products) {
+            <tr>
+                <td>
+                    <a class="btn btn-info btn-sm" role="button" href='@routes.Products.view(product.name)'>@Messages("products.view")</a>
+                    <a class="btn btn-danger btn-sm" role="button" href='@routes.Products.delete(product.name)'>@Messages("products.delete")</a>
+                </td>
+                <td>@product.name</td>
+                <td>@product.description</td>
+            </tr>
+        }
+
+    </table>
+
+    <a class="btn btn-primary" role="button" href='@routes.Products.newProduct()' >@Messages("products.new")</a>
+
+}

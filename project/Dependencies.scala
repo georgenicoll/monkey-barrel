@@ -23,6 +23,7 @@ object Dependencies {
   //Libraries
   private[this] val _ComTypesafeAkka_ = "com.typesafe.akka"
   val _AkkaActor_ = _ComTypesafeAkka_ %% "akka-actor" % _AkkaVersion_
+  val _AkkaSlf4j_ = _ComTypesafeAkka_ %% "akka-slf4j" % _AkkaVersion_
   val _AkkaTestKit_ = _ComTypesafeAkka_ %% "akka-testkit" % _AkkaVersion_ % _Test_
   val _AkkaStreams_ = _ComTypesafeAkka_ %% "akka-stream-experimental" % _AkkaStreamsVersion_
 

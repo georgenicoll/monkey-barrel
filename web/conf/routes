@@ -3,8 +3,19 @@
 # ~~~~
 
 # Home page
-GET     /                           controllers.Application.index
-GET     /barrel                     controllers.Application.barrel
+GET           /                           controllers.Application.index
+
+# From Play with Scala book - remove at some point
+GET           /products                   controllers.Products.list
+POST          /products                   controllers.Products.create
+GET           /products/new               controllers.Products.newProduct
+GET           /products/delete/:name      controllers.Products.delete(name: String)
+GET           /products/:name             controllers.Products.view(name: String)
+DELETE        /products/:name             controllers.Products.delete(name: String)
+
+# Barrel
+GET           /barrel                     controllers.Barrels.barrel
+GET           /asyncbarrel                controllers.Barrels.asyncBarrel
 
 # Map static resources from the /public folder to the /assets URL path
-GET     /assets/*file               controllers.Assets.at(path="/public", file)
+GET           /assets/*file               controllers.Assets.at(path="/public", file)

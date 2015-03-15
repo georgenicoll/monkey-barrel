@@ -1,1 +1,17 @@
 application.name=Monkey Barrel
+
+barrel.mixup=Mix Up Your Monkeys
+
+products.list=Products
+products.view=View
+products.new=New Product
+products.new.submit=Add Product
+products.new.namealreadyexists=There is already a Product with this name
+products.new.added=Product {0} Added
+products.delete=Delete
+products.delete.deleted=Deleted {0}
+products.details=Product: {0}
+products.id=Id
+products.name=Name
+products.description=Description
+validation.errors=Validation Errors

@@ -1,0 +1,18 @@
+@(productForm: Form[Product])(implicit flash: Flash, lang: Lang)
+
+@main(Messages("products.new")) {
+
+    <h2>@Messages("products.new")</h2>
+
+    @helper.form(action = routes.Products.create()) {
+        <fieldset>
+            <input type="hidden" name="id" value="-1" />
+            @helper.inputText(productForm("name"), '_label -> Messages("products.name"))
+            @helper.textarea(productForm("description"), '_label -> Messages("products.description"))
+            <p>
+                <input type="submit" class="btn btn-success" value='@Messages("products.new.submit")' />
+            </p>
+        </fieldset>
+    }
+
+}
