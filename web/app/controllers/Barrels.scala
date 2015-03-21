@@ -1,29 +1,32 @@
 package controllers
 
-import play.api.libs.concurrent.Promise
+import models.Barrel
+import org.monkeynuthead.monkeybarrel.core.Types.Attribute
+import org.monkeynuthead.monkeybarrel.core.{Row, Table, Types}
+import play.api.libs.json._
 import play.api.mvc.{Action, Controller}
 
-import scala.concurrent.Future
-import scala.concurrent.duration._
 import scala.language.postfixOps
 
 object Barrels extends Controller {
 
-  def barrel = Action { implicit request =>
-    Ok(views.html.barrels.barrel("Hello from the here and now!"))
+  import org.monkeynuthead.monkeybarrel.CoreFormatters._
+
+  def reports = Action {
+    Ok(Json.toJson(Barrel.reportNames))
   }
 
-  def asyncBarrel = Action.async { implicit request =>
-    import play.api.libs.concurrent.Execution.Implicits.defaultContext
+  def meta(report: String) = Action {
+    Barrel.meta(report).map { attributes =>
+      Ok(Json.toJson(attributes))
+    }.getOrElse(NotFound(s"No Report Found with Name '${report}'"))
+  }
 
-    val message = Future {
-      //Simulated to take some time
-      Thread.sleep(1000)
-      "Hi There From the Future!"
-    }
-    val timeout = Promise.timeout("Ooopps: Too Slow", 990 milliseconds)
-    val firstResult = Future.firstCompletedOf(Seq(message, timeout) )
-    firstResult.map(value => Ok(views.html.barrels.barrel(value)))
+  def aggregate(report: String, attributes: String = "") = Action {
+    Barrel.aggregate(report, attributes.split("/")).map { aggregated =>
+      val json = Json.toJson(aggregated)
+      Ok(json)
+    }.getOrElse(NotFound(s"No Report Found with Name '${report}'"))
   }
 
 }
