@@ -30,6 +30,6 @@ object Table {
 
   def apply(attributes: Seq[Attribute], rows: Seq[Row]): Table = new Table(attributes, rows)
 
-  def apply(attributes: Seq[Attribute]): Table = apply(attributes, Seq.empty)
+  def unapply(table: Table): Option[(Seq[Attribute],Seq[Row])] = Some((table.attributes,table.rows))
 
 }

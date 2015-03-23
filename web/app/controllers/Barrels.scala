@@ -1,14 +1,13 @@
 package controllers
 
 import models.Barrel
+import org.monkeynuthead.format.JsonFormatters._
 import play.api.libs.json._
 import play.api.mvc.{Action, Controller}
 
 import scala.language.postfixOps
 
 object Barrels extends Controller {
-
-  import org.monkeynuthead.monkeybarrel.JsonFormatters._
 
   def reports = Action {
     Ok(Json.toJson(Barrel.reportNames))

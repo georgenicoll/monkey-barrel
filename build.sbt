@@ -66,7 +66,7 @@ lazy val web =  (project in file("web")).
   settings(
     name := "monkey-barrel-web",
     libraryDependencies ++= Seq(
-      jdbc, anorm, cache, ws, _AkkaSlf4j_
+      jdbc, anorm, cache, ws, _AkkaSlf4j_, _Scalatest_
     )
   ).
   dependsOn(core_jvm, script)

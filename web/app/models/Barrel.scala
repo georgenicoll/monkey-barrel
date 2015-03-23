@@ -1,7 +1,6 @@
 package models
 
-import org.monkeynuthead.monkeybarrel.core.Types.Attribute
-import org.monkeynuthead.monkeybarrel.core.{Aggregator, Row, Table}
+import org.monkeynuthead.monkeybarrel.core.{Aggregator, Types, Row, Table}
 
 object Barrel {
 
@@ -44,10 +43,10 @@ object Barrel {
 
   def reportNames: Set[String] = reports.keySet
 
-  def meta(report: String): Option[Seq[Attribute]] =
+  def meta(report: String): Option[Seq[Types.Attribute]] =
     reports.get(report).map { case (table, _) => table.attributes }
 
-  def aggregate(report: String, attributes: Seq[Attribute]): Option[Table] =
+  def aggregate(report: String, attributes: Seq[Types.Attribute]): Option[Table] =
     reports.get(report).map { case (table, functions) => Aggregator(table).aggregate(attributes, functions) }
 
 }
