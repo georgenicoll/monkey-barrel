@@ -1,6 +1,7 @@
 import org.specs2.mutable._
 import org.specs2.runner._
 import org.junit.runner._
+import play.api.Play
 
 import play.api.test._
 import play.api.test.Helpers._
@@ -18,7 +19,7 @@ class IntegrationSpec extends Specification {
 
       browser.goTo("http://localhost:" + port)
 
-      browser.pageSource must contain("Monkey Barrel")
+      browser.pageSource must contain("Monkeys")
     }
   }
 }

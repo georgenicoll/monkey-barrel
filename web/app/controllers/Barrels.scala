@@ -1,8 +1,6 @@
 package controllers
 
 import models.Barrel
-import org.monkeynuthead.monkeybarrel.core.Types.Attribute
-import org.monkeynuthead.monkeybarrel.core.{Row, Table, Types}
 import play.api.libs.json._
 import play.api.mvc.{Action, Controller}
 
@@ -10,7 +8,7 @@ import scala.language.postfixOps
 
 object Barrels extends Controller {
 
-  import org.monkeynuthead.monkeybarrel.CoreFormatters._
+  import org.monkeynuthead.monkeybarrel.JsonFormatters._
 
   def reports = Action {
     Ok(Json.toJson(Barrel.reportNames))
@@ -24,8 +22,7 @@ object Barrels extends Controller {
 
   def aggregate(report: String, attributes: String = "") = Action {
     Barrel.aggregate(report, attributes.split("/")).map { aggregated =>
-      val json = Json.toJson(aggregated)
-      Ok(json)
+      Ok(Json.toJson(aggregated))
     }.getOrElse(NotFound(s"No Report Found with Name '${report}'"))
   }
 

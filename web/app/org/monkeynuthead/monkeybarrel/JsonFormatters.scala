@@ -2,8 +2,9 @@ package org.monkeynuthead.monkeybarrel
 
 import org.monkeynuthead.monkeybarrel.core.{Row, Types, Table}
 import play.api.libs.json._
+import play.api.libs.functional.syntax._
 
-object CoreFormatters {
+object JsonFormatters {
 
   implicit object RowFormat extends Format[Row] {
 
@@ -12,13 +13,13 @@ object CoreFormatters {
 
     override def reads(json: JsValue): JsResult[Row] = JsSuccess(Row(
       (json \ Attributes).as[Map[Types.Attribute,Types.AttributeValue]],
-      (json \ Measures).as[Map[Types.Measure, Double]]
+      (json \ Measures).as[Map[Types.Measure,Double]]
     ))
 
-    override def writes(row: Row): JsValue = JsObject(Seq(
+    override def writes(row: Row): JsValue = (JsObject(Seq(
       Attributes -> Json.toJson(row.attributes),
       Measures -> Json.toJson(row.measures)
-    ))
+    )))
 
   }
 
