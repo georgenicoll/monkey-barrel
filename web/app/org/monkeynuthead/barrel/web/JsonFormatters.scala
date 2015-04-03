@@ -1,4 +1,4 @@
-package org.monkeynuthead.format
+package org.monkeynuthead.barrel.web
 
 import org.monkeynuthead.monkeybarrel.core.{Row, Table}
 import play.api.libs.json._

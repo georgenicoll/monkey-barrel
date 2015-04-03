@@ -14,9 +14,11 @@ GET           /products/:name                             controllers.Products.v
 DELETE        /products/:name                             controllers.Products.delete(name: String)
 
 # Barrel
-GET           /barrels                                    controllers.Barrels.reports
-GET           /barrels/:name                              controllers.Barrels.meta(name)
-GET           /barrels/:name/aggregate/*attributes        controllers.Barrels.aggregate(name,attributes)
+GET           /barrels                                    @controllers.Barrels.reports
+GET           /barrels/:name                              @controllers.Barrels.meta(name)
+GET           /barrels/:name/aggregate/*attributes        @controllers.Barrels.aggregate(name,attributes)
 
 # Map static resources from the /public folder to the /assets URL path
 GET           /assets/*file                               controllers.Assets.at(path="/public", file)
+
+->            /auth                                       securesocial.Routes

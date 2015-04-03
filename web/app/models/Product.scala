@@ -1,7 +1,5 @@
 package models
 
-import java.util.concurrent.atomic.AtomicLong
-
 case class Product(name: String, description: String)
 
 object Product {

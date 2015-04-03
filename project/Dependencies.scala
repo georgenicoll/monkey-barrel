@@ -5,17 +5,19 @@ object Dependencies {
   val _SbtVersion_ = "0.13.7"
 
   //Versions
-  val _AkkaVersion_ = "2.3.9"
-  val _AkkaStreamsVersion_ = "1.0-M4"
-  val _JUnitVersion_ = "4.12"
-  val _ScalaJsDomVersion_ = "0.8.0"
+  private val _AkkaVersion_ = "2.3.9"
+  private val _AkkaStreamsVersion_ = "1.0-M4"
+  private val _JUnitVersion_ = "4.12"
+  private val _PlayPluginsMailerVersion_ = "2.3.1"
+  private val _ScalaJsDomVersion_ = "0.8.0"
   val _ScalaJsJQueryVersion_ = "0.8.0"
   val _ScalaRxVersion_ = "0.2.7"
   val _ScalaTagsVersion_ = "0.4.5"
-  val _ScalaTestVersion_ = "2.2.4"
-  val _ScalazVersion_ = "7.1.1"
-  val _ShapelessVersion_ = "2.1.0"
-  val _Slf4jVersion_ = "1.7.10"
+  private val _ScalaTestVersion_ = "2.2.4"
+  private val _ScalazVersion_ = "7.1.1"
+  private val _SecureSocialVersion_ = "3.0-M3"
+  private val _ShapelessVersion_ = "2.1.0"
+  private val _Slf4jVersion_ = "1.7.10"
   val _UTestVersion_ = "0.3.0"
 
   val _Test_ = "test"
@@ -31,7 +33,11 @@ object Dependencies {
 
   val _JUnit_ = "junit" % "junit" % _JUnitVersion_
 
+  val _PlayPluginsMailer_ = "com.typesafe.play.plugins" %% "play-plugins-mailer" % _PlayPluginsMailerVersion_
+
   val _Scalatest_ = "org.scalatest" %% "scalatest" % _ScalaTestVersion_ % _Test_
+
+  val _SecureSocial_ = "ws.securesocial" %% "securesocial" % _SecureSocialVersion_
 
   private[this] val _OrgScalaz_ = "org.scalaz"
   val _ScalazDeps_ = Seq(
