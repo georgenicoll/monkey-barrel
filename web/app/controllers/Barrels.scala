@@ -1,25 +1,28 @@
 package controllers
 
-import models.{Barrel, UserDetail}
+import models.Barrel
 import org.monkeynuthead.barrel.web.JsonFormatters._
 import play.api.libs.json._
-import securesocial.core.{RuntimeEnvironment, SecureSocial}
+import play.api.mvc.{Action, Controller}
 
+import scala.concurrent.Future
 import scala.language.postfixOps
 
-class Barrels(override implicit val env: RuntimeEnvironment[UserDetail]) extends SecureSocial[UserDetail] {
+object Barrels extends Controller {
+  //class Barrels(override implicit val env: RuntimeEnvironment[UserDetail])
+  //  extends SecureSocial[UserDetail] {
 
-  def reports = SecuredAction {
+  def reports = /*Secured*/ Action {
     Ok(Json.toJson(Barrel.reportNames))
   }
 
-  def meta(report: String) = SecuredAction {
+  def meta(report: String) = /*Secured*/ Action {
     Barrel.meta(report).map { attributes =>
       Ok(Json.toJson(attributes))
     }.getOrElse(NotFound(s"No Report Found with Name '${report}'"))
   }
 
-  def aggregate(report: String, attributes: String = "") = SecuredAction {
+  def aggregate(report: String, attributes: String = "") = /*Secured*/ Action {
     Barrel.aggregate(report, attributes.split("/")).map { aggregated =>
       Ok(Json.toJson(aggregated))
     }.getOrElse(NotFound(s"No Report Found with Name '${report}'"))
