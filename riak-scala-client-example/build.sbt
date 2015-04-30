@@ -1,5 +1,8 @@
 lazy val Test = "test"
 
+lazy val AkkaOrg = "com.typesafe.akka"
+lazy val AkkaVersion = "2.3.10"
+
 lazy val commonSettings = Seq(
   organization := "org.monkeynuthead.riak",
   version := "0.1.0",
@@ -15,6 +18,8 @@ lazy val root = (project in file(".")).
   settings(
     name := "riak-scala-client-example",
     libraryDependencies ++= Seq(
-      "com.scalapenos" %% "riak-scala-client" % "0.9.5"
+      "com.scalapenos" %% "riak-scala-client" % "0.9.5",
+      AkkaOrg %% "akka-actor" % AkkaVersion,
+      AkkaOrg %% "akka-testkit" % AkkaVersion % Test
     )
   )
