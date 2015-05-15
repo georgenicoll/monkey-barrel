@@ -8,7 +8,7 @@ object Model {
 
   final case class HashTag(name: String)
 
-  final case class Tweet(author: Author, timestamp: Long, body: String) {
+  final case class Tweet(value: Int, author: Author, timestamp: Long, body: String) {
     def hashtags: Set[HashTag] =
       body.split(" ").collect { case t if t.startsWith("#") => HashTag(t) }.toSet
   }
