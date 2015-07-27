@@ -17,7 +17,7 @@ lazy val commonSettings = Seq(
 lazy val root = (project in file(".")).
   settings(commonSettings: _*).
   settings(
-    name := "akka-streams-cookbook",
+    name := "akka-stream",
     libraryDependencies ++= Seq(
       akka_actor, akka_stream,
       junit, scalatest

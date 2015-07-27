@@ -1,14 +1,14 @@
 package org.monkeynuthead.monkeybarrel.streams
 
-import akka.stream.ActorFlowMaterializer
+import akka.stream.ActorMaterializer
 import akka.stream.scaladsl.Source
 import org.junit.runner.RunWith
-import org.scalatest.{MustMatchers, WordSpec}
 import org.scalatest.junit.JUnitRunner
+import org.scalatest.{MustMatchers, WordSpec}
 
 import scala.concurrent.Await
-import scala.language.postfixOps
 import scala.concurrent.duration._
+import scala.language.postfixOps
 
 @RunWith(classOf[JUnitRunner])
 class SetUpStreamsSpec extends WordSpec with MustMatchers with StreamsTestSetup {
@@ -17,7 +17,8 @@ class SetUpStreamsSpec extends WordSpec with MustMatchers with StreamsTestSetup 
 
     "be possible to setup" in {
       withSystem { implicit system =>
-        implicit val materializer = ActorFlowMaterializer()
+
+        implicit val materializer = ActorMaterializer()
 
         val someText = "I am some text"
         val builder = List.newBuilder[String]

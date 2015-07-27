@@ -3,6 +3,9 @@ package org.monkeynuthead.monkeybarrel.streams
 import akka.actor.ActorSystem
 import org.scalatest.{BeforeAndAfterAll, Suite}
 
+import scala.concurrent.Await
+import scala.concurrent.duration.Duration
+
 trait StreamsTestSetup extends BeforeAndAfterAll {
 
   self: Suite =>
@@ -17,8 +20,8 @@ trait StreamsTestSetup extends BeforeAndAfterAll {
   override protected def afterAll(): Unit = {
     super.afterAll()
     system = system.flatMap { sys =>
-      sys.shutdown()
-      sys.awaitTermination()
+      sys.terminate()
+      Await.result(sys.whenTerminated, Duration.Inf)
       None
     }
   }

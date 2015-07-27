@@ -12,7 +12,7 @@ lazy val commonSettings = Seq(
 //Aggregate Project
 lazy val root = (project in file(".")).
   settings(commonSettings: _*).
-  aggregate(core_jvm, core_js, script, web)
+  aggregate(core_jvm, core_js, script, aggregator, web)
 
 //Core classes (cross compiled for usage on the jvm and from java script)
 lazy val core = (crossProject in file("core")).
@@ -58,9 +58,14 @@ lazy val script = (project in file("script")).
     //scalaJSOptimizerOptions ~= { _.withDisableOptimizer(true) } //no Opt for debugging
   ).
   dependsOn(core_js)
+
+//Stream aggregation processing
+lazy val aggregator = (project in file("aggregator")).
+  settings(commonSettings: _*).
+  dependsOn(core_jvm)
   
 //The web application (play)
-lazy val web =  (project in file("web")).
+lazy val web = (project in file("web")).
   enablePlugins(PlayScala).
   settings(commonSettings: _*).
   settings(

@@ -1,12 +1,12 @@
 import sbt._
 
 object Dependencies {
-  val _ScalaVersion_ = "2.11.6"
-  val _SbtVersion_ = "0.13.7"
+  val _ScalaVersion_ = "2.11.7"
+  val _SbtVersion_ = "0.13.8"
 
   //Versions
-  private val _AkkaVersion_ = "2.3.9"
-  private val _AkkaStreamsVersion_ = "1.0-M4"
+  private val _AkkaVersion_ = "2.4-M2"
+  private val _AkkaStreamsVersion_ = "1.0"
   private val _JUnitVersion_ = "4.12"
   private val _PlayPluginsMailerVersion_ = "2.3.1"
   private val _ScalaJsDomVersion_ = "0.8.0"

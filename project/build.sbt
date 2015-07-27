@@ -1,1 +1,3 @@
-//Uncomment when supported scalaVersion := "2.11.6"
+// scalaVersion := "2.11.7"
+
+// sbtVersion := "0.13.8"
