@@ -62,6 +62,13 @@ lazy val script = (project in file("script")).
 //Stream aggregation processing
 lazy val aggregator = (project in file("aggregator")).
   settings(commonSettings: _*).
+  settings(
+    libraryDependencies ++= Seq(
+      _AkkaStreams_,
+      _JUnit_,
+      _Scalatest_
+    )
+  ).
   dependsOn(core_jvm)
   
 //The web application (play)
