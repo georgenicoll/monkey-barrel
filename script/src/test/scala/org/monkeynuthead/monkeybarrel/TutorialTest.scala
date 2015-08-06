@@ -1,7 +1,8 @@
-package com.monkeynuthead.monkeybarrel.script
+package org.monkeynuthead.monkeybarrel
 
-import utest._
+import org.monkeynuthead.monkeybarrel.script.TutorialApp
 import org.scalajs.jquery.jQuery
+import utest._
 
 object TutorialTest extends TestSuite {
 

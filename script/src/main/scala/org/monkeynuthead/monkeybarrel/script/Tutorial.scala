@@ -1,4 +1,4 @@
-package com.monkeynuthead.monkeybarrel.script
+package org.monkeynuthead.monkeybarrel.script
 
 import org.scalajs.jquery.jQuery
 import scala.scalajs.js.JSApp

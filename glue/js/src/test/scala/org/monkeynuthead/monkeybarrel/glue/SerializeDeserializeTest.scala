@@ -1,4 +1,4 @@
-package com.monkeynuthead.monkeybarrel.glue
+package org.monkeynuthead.monkeybarrel.glue
 
 import utest._
 import utest.framework.TestSuite

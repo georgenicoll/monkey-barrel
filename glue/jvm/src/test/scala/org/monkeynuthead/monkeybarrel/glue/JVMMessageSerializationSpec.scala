@@ -1,8 +1,8 @@
-package com.monkeynuthead.monkeybarrel.glue
+package org.monkeynuthead.monkeybarrel.glue
 
 import org.junit.runner.RunWith
-import org.scalatest.{MustMatchers, WordSpec}
 import org.scalatest.junit.JUnitRunner
+import org.scalatest.{MustMatchers, WordSpec}
 
 @RunWith(classOf[JUnitRunner])
 class JVMMessageSerializationSpec extends WordSpec with MustMatchers {
