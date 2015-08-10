@@ -1,3 +1,5 @@
+import sbt.Keys._
+
 //Unit Testing
 val JUnit = "junit" % "junit" % "4.12" % "test"
 val ScalaTest = "org.scalatest" %% "scalatest" % "2.2.5" % "test"
@@ -8,12 +10,16 @@ val ScalaJSJQueryVersion = "0.8.0"
 val MicroPickleVersion = "0.3.4"
 val UTestVersion = "0.3.0"
 
+val AkkaHttpVersion = "1.0"
+
+val ScalaXmlVersion = "1.0.5"
+
 lazy val commonSettings = Seq(
   organization := "org.monkeynuthead",
   version := "0.1.0",
   scalaVersion := "2.11.7",
   sbtVersion := "0.13.8",
-  scalacOptions ++= Seq("-feature","-unchecked","-deprecation")
+  scalacOptions ++= Seq("-feature","-unchecked","-deprecation", "-encoding", "utf8")
 )
 
 lazy val monkeybarrel = (project in file(".")).
@@ -69,6 +75,13 @@ lazy val monkeybarrel_script = (project in file("script")).
 lazy val monkeybarrel_web = (project in file("web")).
   settings(commonSettings: _*).
   settings(
-    name := "monkeybarrel-web"
+    name := "monkeybarrel-web",
+    libraryDependencies ++= Seq(
+      "org.scala-lang.modules" %% "scala-xml" % ScalaXmlVersion,
+      "com.typesafe.akka" %% "akka-http-experimental" % AkkaHttpVersion,
+      "com.typesafe.akka" %% "akka-http-xml-experimental" % AkkaHttpVersion,
+      "com.typesafe.akka" %% "akka-http-spray-json-experimental" % AkkaHttpVersion,
+      "com.typesafe.akka" %% "akka-http-testkit-experimental" % AkkaHttpVersion % "test"
+    )
   )
   
