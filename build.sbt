@@ -80,8 +80,9 @@ lazy val monkeybarrel_web = (project in file("web")).
       "org.scala-lang.modules" %% "scala-xml" % ScalaXmlVersion,
       "com.typesafe.akka" %% "akka-http-experimental" % AkkaHttpVersion,
       "com.typesafe.akka" %% "akka-http-xml-experimental" % AkkaHttpVersion,
-      "com.typesafe.akka" %% "akka-http-spray-json-experimental" % AkkaHttpVersion,
-      "com.typesafe.akka" %% "akka-http-testkit-experimental" % AkkaHttpVersion % "test"
+      "com.lihaoyi" %% "upickle" % MicroPickleVersion,
+      "com.typesafe.akka" %% "akka-http-testkit-experimental" % AkkaHttpVersion % "test",
+      JUnit, ScalaTest
     )
   )
   

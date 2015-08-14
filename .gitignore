@@ -21,3 +21,5 @@ project/plugins/project/
 Thumbs.db
 
 web/conf/accounts.conf
+
+node_modules/

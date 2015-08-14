@@ -6,9 +6,6 @@ import akka.http.scaladsl.marshallers.xml.ScalaXmlSupport._
 import akka.http.scaladsl.server.Directives._
 import akka.stream.Materializer
 import org.monkeynuthead.monkeybarrel.web.Model.HelloResult
-import akka.http.scaladsl.marshallers.sprayjson.SprayJsonSupport._
-import akka.http.scaladsl.marshalling.ToResponseMarshallable
-
 import scala.concurrent.ExecutionContextExecutor
 
 /**
@@ -32,7 +29,7 @@ trait Service extends Protocols {
     } ~
     (post & entity(as[Model.HelloData])) { helloData =>
       complete {
-        ToResponseMarshallable(HelloResult(helloData.from, helloData.say.getOrElse("Howdy!")))
+        HelloResult(helloData.from, helloData.say.getOrElse("Howdy!"))
       }
     }
   }

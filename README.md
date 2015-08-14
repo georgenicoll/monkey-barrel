@@ -1,4 +1,5 @@
 # monkey-barrel
-An Aggregation of Monkeys
+An Aggregation of Monkeys.
 
-This is where I try out stuff.
+## Why?
+I need to try out things.
