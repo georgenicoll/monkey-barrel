@@ -10,6 +10,8 @@ val AkkaHttpTwirlVersion = "1.0.0"
 val MicroPickleVersion = "0.3.4"
 val ScalaJSDomVersion = "0.8.0"
 val ScalaJSJQueryVersion = "0.8.0"
+val ScalaTagsVersion = "0.5.2"
+val ScalaTagsRxVersion = "0.1.0"
 val ScalaXmlVersion = "1.0.5"
 val UTestVersion = "0.3.0"
 
@@ -65,9 +67,12 @@ lazy val monkeybarrel_script = (project in file("script")).
     testFrameworks += new TestFramework("utest.runner.Framework"),
     persistLauncher in Compile := true,
     persistLauncher in Test := false,
+    mainClass in Compile := Some("org.monkeynuthead.monkeybarrel.script.Client"),
     libraryDependencies ++= Seq(
-      //"org.scala-js" %%% "scalajs-dom" % ScalaJSDomVersion
+      "org.scala-js" %%% "scalajs-dom" % ScalaJSDomVersion,
       "be.doeraene" %%% "scalajs-jquery" % ScalaJSJQueryVersion,
+      "com.lihaoyi" %%% "scalatags" % ScalaTagsVersion,
+      "com.timushev" %%% "scalatags-rx" % ScalaTagsRxVersion,
       "com.lihaoyi" %%% "utest" % UTestVersion % "test"
     )
   )

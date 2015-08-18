@@ -3,6 +3,7 @@ package org.monkeynuthead.monkeybarrel.script
 import org.scalajs.jquery.jQuery
 import scala.scalajs.js.JSApp
 import scala.scalajs.js.annotation.JSExport
+import scalatags.Text.all._
 
 object TutorialApp extends JSApp {
 
@@ -10,7 +11,7 @@ object TutorialApp extends JSApp {
   val ClickedFrom = "Clicked from ScalaJS"
 
   def appendPar(text: String): Unit = {
-    jQuery("body").append(s"<p>$text</p>")
+    jQuery("body").append(p(text).render)
   }
 
   def addClickedMessage(message: String): Unit = {
@@ -18,7 +19,7 @@ object TutorialApp extends JSApp {
   }
 
   def setupUI(): Unit = {
-    jQuery(s"""<button type="button">$ClickMe</button>""")
+    jQuery(button(ClickMe, `type`:="button").render)
       .click(() => addClickedMessage(ClickedFrom))
       .appendTo(jQuery("body"))
     appendPar("Hello World!")
@@ -26,7 +27,7 @@ object TutorialApp extends JSApp {
 
   @JSExport
   override def main(): Unit = {
-    jQuery(setupUI _)
+    jQuery(setupUI())
   }
 
 }
