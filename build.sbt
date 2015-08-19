@@ -24,12 +24,22 @@ lazy val commonSettings = Seq(
   resolvers += "Bartek's repo at Bintray" at "https://dl.bintray.com/btomala/maven"
 )
 
+lazy val scalaJsCommonSettings = Seq(
+  scalaJSStage in Global := FastOptStage, //Needs node
+  skip in packageJSDependencies := false,
+  jsDependencies += RuntimeDOM, //Need PhantomJS
+  testFrameworks += new TestFramework("utest.runner.Framework"),
+  persistLauncher in Compile := true,
+  persistLauncher in Test := false
+)
+
 lazy val monkeybarrel = (project in file(".")).
   aggregate(
     monkeybarrel_glue_js,
     monkeybarrel_glue_jvm,
     monkeybarrel_script,
-    monkeybarrel_web
+    monkeybarrel_web,
+    hands_on_scala_js
   )
   
 lazy val monkeybarrel_glue = (crossProject in file("glue")).
@@ -59,14 +69,9 @@ lazy val monkeybarrel_glue_js = monkeybarrel_glue.js
 lazy val monkeybarrel_script = (project in file("script")).
   enablePlugins(ScalaJSPlugin).
   settings(commonSettings: _*).
+  settings(scalaJsCommonSettings: _*).
   settings(
     name := "monkeybarrel-script",
-    scalaJSStage in Global := FastOptStage, //Needs node
-    skip in packageJSDependencies := false,
-    jsDependencies += RuntimeDOM, //Need PhantomJS
-    testFrameworks += new TestFramework("utest.runner.Framework"),
-    persistLauncher in Compile := true,
-    persistLauncher in Test := false,
     mainClass in Compile := Some("org.monkeynuthead.monkeybarrel.script.Client"),
     libraryDependencies ++= Seq(
       "org.scala-js" %%% "scalajs-dom" % ScalaJSDomVersion,
@@ -100,4 +105,16 @@ lazy val monkeybarrel_web = (project in file("web")).
     //}
   ).
   dependsOn(monkeybarrel_script)
-  
+
+lazy val hands_on_scala_js = (project in file("hands-on-scala-js")).
+  enablePlugins(ScalaJSPlugin).
+  settings(commonSettings: _*).
+  settings(scalaJsCommonSettings: _*).
+  settings(
+    name := "hands-on-scala-js",
+    libraryDependencies ++= Seq(
+      "org.scala-js" %%% "scalajs-dom" % ScalaJSDomVersion,
+      "com.lihaoyi" %%% "scalatags" % ScalaTagsVersion,
+      "com.lihaoyi" %%% "utest" % UTestVersion % "test"
+    )
+  )
