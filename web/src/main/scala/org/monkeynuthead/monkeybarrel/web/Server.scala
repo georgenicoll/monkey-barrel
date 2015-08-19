@@ -6,7 +6,7 @@ import akka.stream.ActorMaterializer
 
 import scala.io.StdIn
 
-object Server extends App with Service {
+object Server extends App with Services {
 
   implicit val system = ActorSystem("http-server")
   implicit val executor = system.dispatcher

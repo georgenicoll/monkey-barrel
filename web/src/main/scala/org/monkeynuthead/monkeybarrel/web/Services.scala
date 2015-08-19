@@ -10,7 +10,7 @@ import scala.concurrent.ExecutionContextExecutor
 /**
  * Pattern taken from the typesafe activator akka-http-microservice project
  */
-trait Service extends MicroPickleSupport with TwirlSupport {
+trait Services extends MicroPickleSupport with TwirlSupport {
 
   implicit val system: ActorSystem
   implicit def executor: ExecutionContextExecutor
@@ -19,7 +19,7 @@ trait Service extends MicroPickleSupport with TwirlSupport {
   val routes = path("hello" / Segments) { segs =>
     get {
       complete {
-        views.html.hello.render(segs.mkString(" "))
+        views.html.hello(segs.mkString(" "))
       }
     } ~
     (post & entity(as[Model.HelloData])) { helloData =>
@@ -27,6 +27,16 @@ trait Service extends MicroPickleSupport with TwirlSupport {
         HelloResult(helloData.from, helloData.say.getOrElse("Howdy!"))
       }
     }
+  } ~
+  path("client") {
+    get {
+      complete {
+        views.html.client()
+      }
+    }
+  } ~
+  path("scripts" / Segment) { segment =>
+    getFromResource(segment)
   }
 
 }

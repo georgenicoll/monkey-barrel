@@ -90,6 +90,14 @@ lazy val monkeybarrel_web = (project in file("web")).
       "btomala" %% "akka-http-twirl" % AkkaHttpTwirlVersion,
       JUnit, ScalaTest,
       "com.typesafe.akka" %% "akka-http-testkit-experimental" % AkkaHttpVersion % "test"
-    )
-  )
+    ),
+    //add the fastOpt generated files into the runtime classpath
+    unmanagedClasspath in Runtime += (classDirectory in Compile in monkeybarrel_script).value.getParentFile
+    //run <<= run dependsOn (fastOptJS in (monkeybarrel_script, Compile))
+    //(resources in Compile) += {
+    //  (fastOptJS in (monkeybarrel_script, Compile)).value
+    //  (artifactPath in (monkeybarrel_script, Compile, fastOptJS)).value
+    //}
+  ).
+  dependsOn(monkeybarrel_script)
   
