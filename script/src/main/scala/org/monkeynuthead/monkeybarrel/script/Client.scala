@@ -10,6 +10,9 @@ import scalatags.rx.all._
 
 object Client extends JSApp {
 
+  //val WsService = "ws://echo.websocket.org"
+  val WsService = "ws://localhost:8888/echo"
+
   val status = Var("Not Connected")
 
   def infoText(text: String): Unit = {
@@ -37,7 +40,7 @@ object Client extends JSApp {
     dom.document.body.appendChild(
       p(statusText).render
     )
-    val location = "ws://echo.websocket.org"
+    val location = WsService
     val websock = new dom.WebSocket(location)
     websock.onerror = (e: dom.ErrorEvent) => infoText(s"Error: ${e.message}")
     websock.onopen = (e: dom.Event) => socketOpened(websock)
