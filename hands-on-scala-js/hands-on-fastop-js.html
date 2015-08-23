@@ -3,13 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <title>Scala JS Client</title>
+    <link rel="stylesheet" type="text/css" href="./target/scala-2.11/classes/css/materialize.css" />
+    <link rel="stylesheet" type="text/css" href="hands-on.css" />
 </head>
 <body>
-<!-- Include Java script dependencies -->
-<script type="text/javascript" src="./target/scala-2.11/hands-on-scala-js-jsdeps.js"></script>
-<!-- Include Scala.js compiled code -->
-<script type="text/javascript" src="./target/scala-2.11/hands-on-scala-js-fastopt.js"></script>
-<!-- Run JSApp -->
-<script type="text/javascript" src="./target/scala-2.11/hands-on-scala-js-launcher.js"></script>
+    <div class="container">
+        <div class="card-panel blue-grey lighten-3">
+            <canvas id="canvas" class="fill-parent" />
+        </div>
+    </div>
+
+    <!-- Include Java script dependencies -->
+    <script type="text/javascript" src="./target/scala-2.11/hands-on-scala-js-jsdeps.js"></script>
+    <!-- Include Scala.js compiled code -->
+    <script type="text/javascript" src="./target/scala-2.11/hands-on-scala-js-fastopt.js"></script>
+    <!-- Run JSApp -->
+    <script type="text/javascript" src="./target/scala-2.11/hands-on-scala-js-launcher.js"></script>
 </body>
 </html>
