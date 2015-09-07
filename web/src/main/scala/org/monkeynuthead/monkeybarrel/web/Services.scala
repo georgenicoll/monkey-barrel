@@ -1,6 +1,6 @@
 package org.monkeynuthead.monkeybarrel.web
 
-import akka.actor.ActorSystem
+import akka.actor.{PoisonPill, ActorSystem}
 import akka.http.scaladsl.model.ws.{TextMessage, Message}
 import akka.http.scaladsl.server.Directives._
 import akka.stream.{OverflowStrategy, Materializer}
@@ -8,7 +8,6 @@ import akka.stream.scaladsl.{Keep, Sink, Source, Flow}
 import akka.stream.stage.{TerminationDirective, SyncDirective, Context, PushStage}
 import akkahttptwirl.TwirlSupport
 import org.monkeynuthead.monkeybarrel.web.Model.HelloResult
-import org.monkeynuthead.monkeybarrel.web.ToUppercaseActor.ClearNext
 import scala.concurrent.ExecutionContextExecutor
 
 /**
@@ -65,7 +64,7 @@ trait Services extends MicroPickleSupport with TwirlSupport {
         case Some(source) => ToUppercaseActor.Message(source)
         case _ => ToUppercaseActor.Message(Source.single("Unexpected"))
       }
-      .to(Sink.actorRef(uppercaseActor, ClearNext))
+      .to(Sink.actorRef(uppercaseActor, PoisonPill))
 
     val out = Source.actorRef[ToUppercaseActor.Message](10, OverflowStrategy.fail)
       .mapMaterializedValue(uppercaseActor ! ToUppercaseActor.Next(_))

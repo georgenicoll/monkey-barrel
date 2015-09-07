@@ -10,6 +10,8 @@ import org.scalatest.junit.JUnitRunner
 
 import scala.concurrent.Await
 
+import scala.language.postfixOps
+
 /**
  * Tests for the [[org.monkeynuthead.monkeybarrel.web.ToUppercaseActor]]
  */
