@@ -24,16 +24,6 @@ class ToUppercaseActorSpec extends WordSpec with MustMatchers with BeforeAndAfte
 
   "The ToUppercaseActor" must {
 
-    "convert None to None" in {
-      val kit = new TestKit(system)
-      val ref = TestActorRef(ToUppercaseActor.create())
-
-      ref ! Next(kit.testActor)
-      ref ! Message(None)
-
-      kit.expectMsg(Message(None))
-    }
-
     "convert Some(a) to Some(a.toUpperCase())" in {
 
       import system.dispatcher
@@ -42,10 +32,10 @@ class ToUppercaseActorSpec extends WordSpec with MustMatchers with BeforeAndAfte
       val ref = TestActorRef(ToUppercaseActor.create())
 
       ref ! Next(kit.testActor)
-      ref ! Message(Some(Source.single("George Test")))
+      ref ! Message(Source.single("George Test"))
 
       val finalString = kit.expectMsgPF(3 seconds) {
-        case Message(Some(source)) => source
+        case Message(source) => source
       }.runFold(new StringBuilder()) { (b, s) => b.append(s) }.map(_.toString())
 
       Await.result(finalString, 3 seconds) must equal("George Test".toUpperCase())

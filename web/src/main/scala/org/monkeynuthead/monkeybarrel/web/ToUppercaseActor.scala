@@ -15,7 +15,7 @@ class ToUppercaseActor() extends Actor {
 
   override def receive: Receive = {
     case Message(source) =>
-      next.foreach(_ ! Message(source.map(_.map(_.toUpperCase()))))
+      next.foreach(_ ! Message(source.map(_.toUpperCase())))
     case Next(ref) =>
       next = Some(ref)
     case ClearNext =>
@@ -30,6 +30,6 @@ object ToUppercaseActor {
 
   case class Next(ref: ActorRef)
   case class ClearNext()
-  case class Message(contents: Option[Source[String, _]])
+  case class Message(contents: Source[String, _])
 
 }

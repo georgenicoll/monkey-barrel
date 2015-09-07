@@ -57,20 +57,19 @@ trait Services extends MicroPickleSupport with TwirlSupport {
     val uppercaseActor = system.actorOf(ToUppercaseActor.create())
 
     val in = Flow[Option[SourceString]]
-      .map(
-        ToUppercaseActor.Message(_)
-      )
-      .to(
-        Sink.actorRef(uppercaseActor, ClearNext)
-      )
+      .filter {
+        case Some(source) => true
+        case _ => false
+      }
+      .map {
+        case Some(source) => ToUppercaseActor.Message(source)
+        case _ => ToUppercaseActor.Message(Source.single("Unexpected"))
+      }
+      .to(Sink.actorRef(uppercaseActor, ClearNext))
 
     val out = Source.actorRef[ToUppercaseActor.Message](10, OverflowStrategy.fail)
-      .mapMaterializedValue(
-        uppercaseActor ! ToUppercaseActor.Next(_)
-      )
-      .map(
-        _.contents
-      )
+      .mapMaterializedValue(uppercaseActor ! ToUppercaseActor.Next(_))
+      .map(m => Some(m.contents))
 
     Flow.wrap(in, out)(Keep.none)
   }
