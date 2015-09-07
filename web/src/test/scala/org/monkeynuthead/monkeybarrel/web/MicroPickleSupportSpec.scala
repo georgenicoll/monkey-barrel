@@ -58,4 +58,9 @@ class MicroPickleSupportSpec extends WordSpec with MustMatchers with BeforeAndAf
 
   }
 
+  override protected def afterAll(): Unit = {
+    system.shutdown()
+    super.afterAll()
+  }
+
 }

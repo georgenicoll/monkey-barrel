@@ -3,11 +3,12 @@ package org.monkeynuthead.monkeybarrel.web
 import akka.actor.ActorSystem
 import akka.http.scaladsl.model.ws.{TextMessage, Message}
 import akka.http.scaladsl.server.Directives._
-import akka.stream.Materializer
-import akka.stream.scaladsl.{Sink, Source, Flow}
+import akka.stream.{OverflowStrategy, Materializer}
+import akka.stream.scaladsl.{Keep, Sink, Source, Flow}
 import akka.stream.stage.{TerminationDirective, SyncDirective, Context, PushStage}
 import akkahttptwirl.TwirlSupport
 import org.monkeynuthead.monkeybarrel.web.Model.HelloResult
+import org.monkeynuthead.monkeybarrel.web.ToUppercaseActor.ClearNext
 import scala.concurrent.ExecutionContextExecutor
 
 /**
@@ -50,11 +51,28 @@ trait Services extends MicroPickleSupport with TwirlSupport {
 
   type SourceString = Source[String, _]
 
-  //Temporary noddy stream proccessing
+  //Perform the update via a simple actor
   private[this] def toUpperCaseFlow: Flow[Option[SourceString],Option[SourceString],Unit] = {
-    Flow[Option[SourceString]].map {
-      _.map(_.map(_.toUpperCase()))
-    }
+
+    val uppercaseActor = system.actorOf(ToUppercaseActor.create())
+
+    val in = Flow[Option[SourceString]]
+      .map(
+        ToUppercaseActor.Message(_)
+      )
+      .to(
+        Sink.actorRef(uppercaseActor, ClearNext)
+      )
+
+    val out = Source.actorRef[ToUppercaseActor.Message](10, OverflowStrategy.fail)
+      .mapMaterializedValue(
+        uppercaseActor ! ToUppercaseActor.Next(_)
+      )
+      .map(
+        _.contents
+      )
+
+    Flow.wrap(in, out)(Keep.none)
   }
 
   //Ashamedly copied from https://github.com/jrudolph/akka-http-scala-js-websocket-chat/
