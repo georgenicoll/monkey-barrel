@@ -1,5 +1,8 @@
 package org.monkeynuthead.monkeybarrel.web
 
+import java.util.UUID
+import java.util.concurrent.atomic.AtomicInteger
+
 import akka.actor.{PoisonPill, ActorSystem}
 import akka.http.scaladsl.model.ws.{TextMessage, Message}
 import akka.http.scaladsl.server.Directives._
@@ -7,6 +10,7 @@ import akka.stream.{OverflowStrategy, Materializer}
 import akka.stream.scaladsl.{Keep, Sink, Source, Flow}
 import akka.stream.stage.{TerminationDirective, SyncDirective, Context, PushStage}
 import akkahttptwirl.TwirlSupport
+import org.monkeynuthead.monkeybarrel.web.BroadcastMessagesActor.Register
 import org.monkeynuthead.monkeybarrel.web.Model.HelloResult
 import scala.concurrent.ExecutionContextExecutor
 
@@ -73,6 +77,31 @@ trait Services extends MicroPickleSupport with TwirlSupport {
     Flow.wrap(in, out)(Keep.none)
   }
 
+  lazy val broadcaster = system.actorOf(BroadcastMessagesActor.create(), "broadcaster")
+
+  //Set up broadcasting flow
+  private[this] def broadcastFlow: Flow[Option[SourceString],Option[SourceString],Unit] = {
+
+    val id = UUID.randomUUID()
+
+    val in = Flow[Option[SourceString]]
+      .filter {
+        case Some(source) => true
+        case _ => false
+      }
+      .map {
+        case Some(source) => BroadcastMessagesActor.Message(source, Some(id))
+        case _ => BroadcastMessagesActor.Message(Source.single("Unexpected"), Some(id))
+      }
+      .to(Sink.actorRef(broadcaster, BroadcastMessagesActor.Unregister(id)))
+
+    val out = Source.actorRef[BroadcastMessagesActor.Message](10, OverflowStrategy.fail)
+      .mapMaterializedValue(broadcaster ! BroadcastMessagesActor.Register(id, _))
+      .map(m => Some(m.source))
+
+    Flow.wrap(in, out)(Keep.none)
+  }
+
   //Ashamedly copied from https://github.com/jrudolph/akka-http-scala-js-websocket-chat/
   private[this] def reportErrorsFlow[T](identifier: String): Flow[T, T, Unit] = {
     Flow[T].transform { () =>
@@ -102,7 +131,8 @@ trait Services extends MicroPickleSupport with TwirlSupport {
       case m: TextMessage => Some(m.textStream)
       case _ => None
     }
-    .via(toUpperCaseFlow)
+    //.via(toUpperCaseFlow)
+    .via(broadcastFlow)
     .map {
       case Some(text) => TextMessage(text)
       case None => TextMessage("Failed in Processing")
