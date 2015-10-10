@@ -43,10 +43,10 @@ trait Services extends MicroPickleSupport with TwirlSupport {
     }
   } ~
   path("echo" / Segment) { seg =>
-    handleWebsocketMessages(echoInUppercaseFlow(seg))
+    handleWebsocketMessages(echoInFlow(seg))
   } ~
   path("echo") {
-    handleWebsocketMessages(echoInUppercaseFlow("Undefined"))
+    handleWebsocketMessages(echoInFlow("Undefined"))
   } ~
   path("scripts" / Segment) { segment =>
     getFromResource(segment)
@@ -70,7 +70,7 @@ trait Services extends MicroPickleSupport with TwirlSupport {
       }
       .to(Sink.actorRef(uppercaseActor, PoisonPill))
 
-    val out = Source.actorRef[ToUppercaseActor.Message](10, OverflowStrategy.fail)
+    val out = Source.actorRef[ToUppercaseActor.Message](10, OverflowStrategy.backpressure)
       .mapMaterializedValue(uppercaseActor ! ToUppercaseActor.Next(_))
       .map(m => Some(m.contents))
 
@@ -95,7 +95,7 @@ trait Services extends MicroPickleSupport with TwirlSupport {
       }
       .to(Sink.actorRef(broadcaster, BroadcastMessagesActor.Unregister(id)))
 
-    val out = Source.actorRef[BroadcastMessagesActor.Message](10, OverflowStrategy.fail)
+    val out = Source.actorRef[BroadcastMessagesActor.Message](10, OverflowStrategy.backpressure)
       .mapMaterializedValue(broadcaster ! BroadcastMessagesActor.Register(id, _))
       .map(m => Some(m.source))
 
@@ -113,7 +113,6 @@ trait Services extends MicroPickleSupport with TwirlSupport {
           super.onUpstreamFailure(cause, ctx)
         }
 
-
         @throws[Exception](classOf[Exception])
         override def postStop(): Unit = {
           println(s"WebSocket '$identifier' stopped.")
@@ -124,9 +123,9 @@ trait Services extends MicroPickleSupport with TwirlSupport {
     }
   }
 
-  private[this] def echoInUppercaseFlow(identifier: String): Flow[Message, Message, Unit] = {
+  private[this] def echoInFlow(identifier: String): Flow[Message, Message, Unit] = {
     println(s"Constructing web socket flow for '$identifier'")
-    //Go via another flow - this will be replaced with something useful, for the moment just use the uppercase flow
+    //Go via another flow - this will be replaced with something useful
     val websockflow = Flow[Message].map {
       case m: TextMessage => Some(m.textStream)
       case _ => None
