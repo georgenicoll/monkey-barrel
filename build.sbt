@@ -19,7 +19,7 @@ lazy val commonSettings = Seq(
   organization := "org.monkeynuthead",
   version := "0.1.0",
   scalaVersion := "2.11.7",
-  sbtVersion := "0.13.8",
+  sbtVersion := "0.13.9",
   scalacOptions ++= Seq("-feature","-unchecked","-deprecation", "-encoding", "utf8"),
   resolvers += "Bartek's repo at Bintray" at "https://dl.bintray.com/btomala/maven"
 )
@@ -105,6 +105,18 @@ lazy val monkeybarrel_web = (project in file("web")).
     //}
   ).
   dependsOn(monkeybarrel_script)
+
+lazy val stream_processing = (project in file("stream-processing")).
+  settings(commonSettings: _*).
+  settings(
+    name := "monkey-stream-processing",
+    libraryDependencies ++= Seq(
+      "com.typesafe.akka" %% "akka-stream-experimental" % AkkaHttpVersion,
+      "com.typesafe.akka" %% "akka-http-experimental" % AkkaHttpVersion,
+      JUnit, ScalaTest,
+      "com.typesafe.akka" %% "akka-http-testkit-experimental" % AkkaHttpVersion % "test"
+    )
+  )
 
 lazy val hands_on_scala_js = (project in file("hands-on-scala-js")).
   enablePlugins(ScalaJSPlugin).
